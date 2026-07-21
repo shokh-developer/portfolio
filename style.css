@@ -1,0 +1,971 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #010216;
+    color: #ffffff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* ==========================================================================
+   2. BASE STYLES
+   ========================================================================== */
+
+:focus-visible {
+    outline: 2px solid rgba(252, 70, 233, 1);
+    outline-offset: 3px;
+}
+
+button {
+    padding: 0.6rem 1.25rem;
+    border: none;
+    border-radius: 15px;
+    color: #ffffff;
+    text-transform: capitalize;
+    font-size: 0.9375rem;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, rgba(0, 41, 247, 1), rgba(252, 70, 233, 1));
+    cursor: pointer;
+    transition: background 0.5s;
+}
+
+button:hover {
+    background: linear-gradient(45deg, rgba(252, 70, 233, 1), rgba(0, 41, 247, 1));
+}
+
+
+/* ==========================================================================
+   3. TYPOGRAPHY
+   ========================================================================== */
+
+.nav-logo h1,
+.footer-brand {
+    letter-spacing: 2px;
+    font-size: 2rem;
+    background: linear-gradient(45deg, rgba(0, 41, 247, 1), rgba(252, 70, 233, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.footer-brand {
+    font-size: 2.5rem;
+    background: linear-gradient(130deg, rgba(0, 41, 247, 1), rgba(252, 70, 233, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+
+header {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    padding-inline: 6%;
+    padding-block: 5rem;
+}
+
+section > h2 {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+}
+
+
+/* ==========================================================================
+   5. COMPONENTS
+   ========================================================================== */
+
+/* ----- Navigation ----- */
+nav.nav-links {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2% 6%;
+    min-height: 5rem;
+    position: relative;
+    z-index: 110;
+}
+
+.nav-logo {
+    text-decoration: none;
+    justify-self: start;
+}
+
+.nav-link {
+    justify-self: center;
+    text-align: center;
+}
+
+.nav-links ul li {
+    display: inline-block;
+    padding-left: 2rem;
+}
+
+.nav-links ul li:first-child {
+    padding-left: 0;
+}
+
+.nav-links ul li a {
+    color: aqua;
+    text-decoration: none;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    display: inline-block;
+    padding-block: 0.25rem;
+}
+
+.nav-links ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: brown;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links ul li:hover::after,
+.nav-links ul li a:focus-visible::after {
+    width: 100%;
+}
+
+nav.nav-links form {
+    justify-self: end;
+}
+
+nav.nav-links form > button {
+    padding: 0.6rem 1.5rem;
+    white-space: nowrap;
+}
+
+/* ----- Hamburger toggle (hidden on desktop) ----- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 0.5rem;
+    background: transparent;
+    border: 2px solid rgba(252, 70, 233, 0.5);
+    border-radius: 8px;
+    z-index: 110;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu-toggle:hover {
+    background: rgba(252, 70, 233, 0.15);
+}
+
+.menu-toggle__bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+
+nav.nav-links:has(.nav-mobile:hover) .menu-toggle__bar:nth-child(1),
+nav.nav-links:has(#primary-navigation:target) .menu-toggle__bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+nav.nav-links:has(.nav-mobile:hover) .menu-toggle__bar:nth-child(2),
+nav.nav-links:has(#primary-navigation:target) .menu-toggle__bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+nav.nav-links:has(.nav-mobile:hover) .menu-toggle__bar:nth-child(3),
+nav.nav-links:has(#primary-navigation:target) .menu-toggle__bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.nav-overlay {
+    display: none;
+}
+
+.about-info > button {
+    margin-top: 2rem;
+    padding: 0.65rem 1.75rem;
+}
+
+
+/* ==========================================================================
+   6. SECTIONS
+   ========================================================================== */
+
+/* ----- Home ----- */
+.home {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 75%;
+    max-width: 56rem;
+    margin-inline: auto;
+    padding: 3rem 2rem;
+    padding-bottom: 4rem;
+}
+
+.home > h1 {
+    text-transform: capitalize;
+    font-size: 2.2rem;
+    margin-top: 2rem;
+}
+
+.home > p {
+    margin-top: 1.5rem;
+    line-height: 1.75;
+    letter-spacing: 0.5px;
+    font-size: 1.125rem;
+    max-width: 42rem;
+}
+
+.home-info {
+    width: 100%;
+    max-width: 52rem;
+    padding: 1.25rem 2.5rem;
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    border-radius: 35px;
+    color: #ffffff;
+    background: linear-gradient(45deg, rgba(0, 41, 247, 1), rgba(252, 70, 233, 1));
+    list-style: none;
+}
+
+.home-info__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.home-infos {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    word-break: break-word;
+}
+
+/* ----- About ----- */
+#About > h2 {
+    margin-left: 0;
+}
+
+.about {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    text-align: center;
+}
+
+.about-img {
+    flex: 1 1 16rem;
+    max-width: 28rem;
+    padding: 1.5rem;
+}
+
+.about-img > img {
+    width: 300px;
+    max-width: 100%;
+    margin-inline: auto;
+    border-radius: 8px;
+}
+
+.about-info {
+    flex: 1 1 16rem;
+    max-width: 36rem;
+    padding: 1.5rem;
+    line-height: 1.75;
+    font-size: 1.1rem;
+    text-align: left;
+}
+
+/* ----- Education ----- */
+#education {
+    margin: 0;
+    padding-inline: 6%;
+}
+
+#education > h2 {
+    margin-bottom: 2rem;
+}
+
+.edu-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+    align-items: stretch;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 15px;
+    padding-bottom: 1rem;
+    box-shadow: 0 0 20px 0 silver;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.card:hover {
+    background-color: #3b3191;
+    box-shadow: 0 0 0 0 silver;
+}
+
+.card > img {
+    margin: 5%;
+    width: 150px;
+    max-width: 60%;
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 10px 0 silver;
+}
+
+.card > p {
+    margin: 6% 4%;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    flex: 1;
+}
+
+.card > a {
+    text-decoration: none;
+    text-transform: capitalize;
+    color: #ffffff;
+    padding-bottom: 0.5rem;
+}
+
+/* ----- Hobby ----- */
+#Hobby {
+    margin: 0;
+}
+
+#Hobby > h2 {
+    text-transform: capitalize;
+}
+
+.hobby-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    align-items: start;
+}
+
+.hobby-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hobby-card > img {
+    width: 250px;
+    max-width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 0 silver;
+    transition: 0.5s;
+    margin-inline: auto;
+}
+
+
+
+.hobby-card > img:hover {
+    box-shadow: 0 0 20px 0 red;
+    border: 1px solid white;
+}
+
+.hobby-card > p {
+    text-transform: capitalize;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, rgba(0, 41, 247, 1) 15%, rgba(252, 70, 233, 1) 56%);
+    border-radius: 25px;
+    margin: 0 10%;
+    padding: 0.35rem 0.75rem;
+    visibility: hidden;
+    transition: transform 0.5s, visibility 0.5s, box-shadow 0.5s;
+}
+
+.hobby-card:hover p {
+    visibility: visible;
+    transform: translate(0, -120px);
+    box-shadow: 0 0 20px 0 rgb(221, 216, 216);
+    border: 1px solid white;
+}
+
+/* ----- Portfolio ----- */
+#portfolio {
+    margin: 0;
+}
+
+#portfolio > h2 {
+    text-transform: capitalize;
+    letter-spacing: 2px;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    gap: 5px;
+    overflow: hidden;
+}
+
+.container > img {
+    height: 70vh;
+    flex: 1;
+    min-width: 0;
+    object-fit: cover;
+    object-position: center;
+    transition: 0.5s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.container img:hover {
+    flex: 3;
+}
+
+/* ----- Footer ----- */
+footer {
+    padding: 4rem 6%;
+    min-height: auto;
+}
+
+.footer-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    text-align: center;
+}
+
+.footer-links ul li {
+    text-align: center;
+    list-style: none;
+    padding: 1% 0%;
+    position: relative;
+}
+
+.footer-links ul li a {
+    color: aqua;
+    text-decoration: none;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+}
+
+.icons {
+    display: flex;
+}
+
+.icons > a {
+    margin: 0 10px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: 0.5s;
+    background-color: rgba(0, 0, 0, 0);
+    color: var(--color);
+    font-size: 2.5rem;
+    -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4));
+}
+
+.icons > a:hover {
+    background: var(--color);
+    color: white;
+    box-shadow: 0 0 5px var(--color),
+         0 0 25px var(--color),
+         0 0 50px var(--color),
+         0 0 200px var(--color),;
+}
+
+footer > p {
+    margin-top: 4%;
+    color: #6e6f69;
+}
+
+/* 
+    ==========================================================================
+    7. MEDIA QUERIES
+    ==========================================================================
+*/
+
+/* ----- Laptop: 1024px and below ----- */
+@media (max-width: 1024px) {
+    section {
+        padding-inline: 5%;
+        padding-block: 4rem;
+    }
+
+    .education{
+        padding-inline: 5%;
+    }
+
+    footer {
+        padding: 3rem 5%;
+    }
+
+    nav.nav-links {
+        padding-inline: 5%;
+    }
+
+    .home > h1 {
+        font-size: 1.8rem;
+    }
+
+    .home > p {
+        font-size: 1rem;
+
+    }
+
+    .edu-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .hobby-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .hobby-card > img {
+        width: 200px;
+    }
+
+    .container{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .container > img {
+        height: auto;
+        aspect-ratio: 4 / 3;
+        flex: unset;
+    }
+    .container > img:hover {
+        flex: unset;
+        transform: scale(1.03);
+        box-shadow: 0 0 15px rgba(252, 70, 233, 0.6);
+    }
+
+    .about-info{
+        text-align: center;
+    }
+}
+
+/* ----- Tablet: 768px and below - hamburger navigation ----- */
+
+@media (max-width: 768px) {
+    section{
+        padding-inline: 4%;
+        padding-block: 3rem;
+    }
+    
+    #education{
+        padding-inline: 4%;
+    }
+
+    footer{
+        padding: 3rem 4%;
+    }
+
+    nav.nav-links{
+        grid-template-columns: 1fr auto auto;
+        grid-template-rows: auto;
+        gap: 0.75rem;
+        padding: 1rem 4%;
+        min-height: 3.5rem;
+    }
+
+    .nav-logo h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav-mobile {
+        grid-column: 2;
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    nav.nav-links form {
+        grid-column: 3;
+        justify-self: end;
+        display: block;
+        position: static;
+    }
+
+    .nav-link {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 85vw;
+        max-width: 18rem;
+        height: 100vh;
+        height: dvh;
+        padding: 6.5rem 1.5rem 2rem;
+        background: linear-gradient(180deg, #0a0b2e 0%, #010216 100%);
+        box-shadow: -8px 0 30px rgba(0, 0, 0, 0.5);
+        transform: translate(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 100;
+        justify-self: unset;
+        overflow-y: auto;
+    }
+
+    .nav-mobile:hover .nav-link,
+    #primary-navgigation:target{
+        transform: translateX(0);
+    }
+
+    .nav-mobile:hover .nav-overlay,
+    #primary-navigation:target ~ .nav-overlay{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .nav-links ul li {
+        display: block;
+        padding-left: 0;
+        padding-block: 0.75rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-links ul li a {
+        font-size: 1.1rem;
+        display: block;
+        padding: 0.5rem 0;
+    }
+
+    .nav-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(1, 2, 22, 0.75);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.35 cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 90;
+        text-indent: -9999px;
+    }
+
+    .home{
+    width: 100%;
+    padding: 2rem 1rem;
+    }
+
+    .home > h1{
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    }
+
+    .hobby-card > p {
+        visibility: hidden;
+    }
+
+    .home-info{
+        padding: 1rem 1.5rem;
+        margin-top: 2rem;
+        gap: 0.75rem;
+    }
+
+    .home-infos{
+        font-size: 1rem;
+    }
+
+
+    .footer-info{
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand{
+        grid-column: 1/ -1;
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    .footer-links ul li a {
+        font-size: 1.2rem;
+    }
+
+    .icons {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    .icons a{
+        font-size: 2rem;
+    }
+
+    body:has(.nav-mobile:hover),
+    body:has(#primary-navigation:target) {
+        overflow: hidden;
+    }
+
+}
+
+/* Large phones: 480px and below */
+
+@media (max-width: 480px) {
+
+    selection{
+        padding-inline: 5%;
+        padding-block: 2.5rem;
+    }
+
+    #education{
+        padding-inline: 5%;
+    }
+
+    footer{
+        padding: 2rem 5%;
+    }
+
+    nav.nav.nav-links{
+        padding: 1.rem 5%;
+    }
+
+    .edu-cards{
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .hobby-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .hobby-card > img {
+        width: 180px;
+    }
+
+    .container{
+        grid-template-columns: 1fr;
+    }
+
+    .container > img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .about {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .about-info{
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .about-img > img {
+        width: 200px;
+    }
+
+    .home > h1 {
+        font-size: 1.35rem;
+    }
+
+    .home > p {
+        font-size: 0.95rem;
+        margin-top: 1rem;
+    }
+
+    .home-info {
+        flex-direction: column;
+        border-radius: 20px;
+        padding: 1rem;
+    }
+
+    .home-info__item--divider {
+        display: none;
+    }
+
+    .home-infos {
+        font-size: 0.9rem;
+    }
+
+    .footer-info {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .footer-brand {
+        font-size: 1.6rem;
+    }
+
+    .footer-links ul li {
+        text-align: center;
+    }
+
+    .footer-links ul li a {
+        font-size: 1rem;
+    }
+
+    .hobby-card > p {
+        visibility: visible;
+        transform: translateY(-1rem);
+        margin-top: -2rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hobby-card:hover p {
+        transform: translateY(-1rem);
+    }
+
+    .hobby-card {
+        visibility: visible;
+    }
+}
+
+/* ----- Iphone 12 pro: 390px and below  */
+@media (max-width: 390px){
+    .home > p br {
+        display: none;
+    } 
+
+    .nav-link{
+        width: 40px;
+        height: 40px;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .home > h1 {
+        font-size: 1.25rem;
+    }
+
+    .hobby-card > p {
+        visibility: hidden;
+    }
+}
+
+/*----- Small phones: 360px and below ----- */
+
+@media (max-width: 360px) {
+    section,
+    #education,
+    .footer,
+    nav.nav-links {
+        padding-inline: 0.75rem;
+    }
+
+    .home-infos {
+        font-size: 0.75rem;
+    }
+
+    button{
+        font-size:  0.85rem;
+    }
+
+    .hobby-card > p {
+        visibility: hidden;
+    }
+}
+
+
+/* 
+    8. UTILITIES
+*/
+
+@media (hover: none){
+
+    .hobby-card > p {
+        visibility: visible;
+        transform: translateY(-1rem);
+        margin-top: -2rem;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: auto !important;
+        scroll-behavior: auto !important;
+    }
+
+    .container img:hover{
+        transform: none;
+    }
+
+    .hobby-card > p {
+        visibility: hidden;
+    }
+}
+
+
